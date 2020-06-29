@@ -1,27 +1,27 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import { Weather } from './store/weather/types';
 import './App.css';
 import axios from 'axios';
 import CardList from './components/CardList/CardList';
 import Search from './components/Search/Search';
+import { Container, Row, Col} from 'reactstrap';
+import { Dispatch } from 'redux';
+import { RootState } from './store/index';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchWeatherData } from './store/weather/actions';
 
 const axiosInstance = axios.create({
   baseURL: 'https://api.openweathermap.org',  
 });
-const API_KEY = 'XYZ';
-
-interface IWeatherItem {
-  temp: number;
-  temp_min: number;
-  temp_max: number;
-  dt_txt: string;
-}
+const API_KEY = 'eae43aee75e921744a0a205aa4cc8b41';
 
 function App():JSX.Element {
-  const [weatherItems, setWeatherItems] = useState<IWeatherItem[]>([]);
   const [hasError, setError] = useState<boolean>(false);
   const [searchKey, setSearchKey] = useState<string>('toronto');
+  const weather = useSelector((state:RootState) => state.weather);
+  const dispatch = useDispatch();
 
-  const transformResponse = (res: any):IWeatherItem[] => {
+  const transformResponse = (res: any):Weather[] => {
     if (res && res.data && res.data.list) {
       return res.data.list.map((item: any) => {
         const weather = {
@@ -44,34 +44,22 @@ function App():JSX.Element {
   };
 
   useEffect(() => {
-    let url = `/data/2.5/forecast?q=${searchKey}&appid=${API_KEY}`;
-    const fetchData = async () => {
-      setWeatherItems([]);
-      try {
-        const res = await axiosInstance({
-          method: 'get',
-          url: url,
-        });      
-        const weatherList = transformResponse(res);
-        let newWeather = [...weatherList];
-
-        console.log(weatherItems);
-        setWeatherItems(newWeather);
-        
-      } catch (e) {
-        setError(true);
-      }
-    };
-
-    fetchData();
-
+    dispatch(fetchWeatherData(searchKey)); 
   }, [searchKey]);
-
+  
   return (
-    <div className="App">
-      <Search listenToSearch={listenToSearch}/>
-      <CardList weatherItems={weatherItems} />
-    </div>
+    <div className="app">
+      <div className="inner">
+        <Container>
+          <Row>
+            <Search listenToSearch={listenToSearch}/>
+          </Row>
+          <Row>
+            <CardList weatherItems={weather} />
+          </Row>
+        </Container>
+      </div>
+    </div>      
   );
 }
 

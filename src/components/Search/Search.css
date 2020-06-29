@@ -1,0 +1,14 @@
+.search-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.search-box Input {
+  width: 400px;
+}
+
+.search-box Button {
+  width: 400px;
+}

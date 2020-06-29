@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '../../components/Card/Card';
+import './CardList.css';
 
 interface IWeatherItem {
   temp: number;
@@ -8,11 +9,11 @@ interface IWeatherItem {
   dt_txt: string;
 }
 
-interface Props {
+interface IWeatherItems {
   weatherItems: IWeatherItem[]
 }
 
-const CardList:React.FC<Props> = ({weatherItems}) => {
+const CardList:React.FC<IWeatherItems> = ({weatherItems}) => {
   return (
     <div className="card-list">
         { weatherItems.map((item: IWeatherItem, index: number) => {

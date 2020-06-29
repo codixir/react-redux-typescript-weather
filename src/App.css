@@ -1,6 +1,10 @@
-.App {
-  text-align: center;
-  display: flex;
-  flex-wrap: wrap;  
+.app {
+  display: flex;  
+  justify-content: center;
 }
 
+.app .inner {
+  display: flex;  
+  justify-content: center;
+  border: 1px solid #ddd;
+}

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Button, Form, Input, FormGroup } from 'reactstrap';
+import './Search.css';
 
 interface Props {
   listenToSearch(arg?: any): void;
@@ -19,11 +21,17 @@ const Search:React.FC<Props> = (props):JSX.Element => {
   }
 
   return (
-      <form onSubmit={handleSearch}>
-        <input type="text" value={value} onChange={handleChange}/>
-        <button type="submit">Search</button>
-      </form>
- 
+    <div className="search-box">
+      <Form onSubmit={handleSearch}>
+        <Input 
+          type="text" 
+          value={value} 
+          onChange={handleChange} 
+          placeholder="Enter city"
+        />
+        <Button color="primary">Sign in</Button> 
+      </Form>
+    </div>       
   );
 }
 
