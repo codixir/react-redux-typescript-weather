@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, FormGroup } from 'reactstrap';
+import { Button, Form, Input } from 'reactstrap';
 import './Search.css';
 
 interface Props {

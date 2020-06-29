@@ -11,7 +11,7 @@ export function fetchWeather(weather: Weather[]): WeatherAction {
 const axiosInstance = axios.create({
   baseURL: 'https://api.openweathermap.org',  
 });
-const API_KEY = 'eae43aee75e921744a0a205aa4cc8b41';
+const API_KEY = 'XYZ'; //Get the api key from `https://openweathermap.org/`
 
 const transformResponse = (res: any):Weather[] => {
   if (res && res.data && res.data.list) {
